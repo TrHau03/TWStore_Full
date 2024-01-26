@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>New Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <style>
+        .image-container {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .button-delete {
+            width: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 mb-4 border-bottom">
+            <h2>Add New Product</h2>
+        </div>
+
+        <form class="row g-3 col-lg-8" method="post" action="/bannerCpanel/addBanner" enctype="multipart/form-data">
+            <div class="col-md-6 row">
+                <label class="form-label" for="phone">Image</label>
+                <input type="file" name="image" class="form-control" multiple placeholder="Choose file" id="image"
+                    onchange="displayImages()">
+            </div>
+            <div id="imageContainer" class="mb-3 d-flex">
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label" for="username">Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Title">
+            </div>
+            <div class="mb-3 mt-3" style="display:none">
+                <select name="typeUpdate" class="form-control">
+                    <option value="insert">Insert</option>
+                </select>
+            </div>
+
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-left mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="/javascripts/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/feather.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script>
+        function displayImages() {
+            const fileInput = document.getElementById('image');
+            const imageContainer = document.getElementById('imageContainer');
+
+            // Xóa hình ảnh hiện tại trong container
+            imageContainer.innerHTML = '';
+
+            // Kiểm tra xem đã chọn tệp tin chưa
+            if (fileInput.files && fileInput.files.length > 0) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const reader = new FileReader();
+                    const img = document.createElement('img');
+                    img.width = 200;
+                    img.height = 200;
+
+                    reader.onload = function (e) {
+                        // Hiển thị hình ảnh
+                        img.src = e.target.result;
+                        imageContainer.appendChild(img); // Thêm hình ảnh vào container
+                    };
+
+                    // Đọc nội dung của tệp tin hình ảnh
+                    reader.readAsDataURL(fileInput.files[i]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cập Nhật Sản Phẩm</title>
+    <!-- Bootstrap CSS với tông màu xanh dương -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="..." crossorigin="anonymous">
+
+    <style>
+        .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Add additional styling for checkboxes if needed */
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Style for the file input */
+input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+img {
+    margin-right: 10px;
+}
+
+/* Custom styling for checkboxes and color inputs */
+input[type="checkbox"] + input[type="color"] {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Optional: Add some space between the size checkboxes */
+input[type="checkbox"][name="size"] {
+    margin-right: 10px;
+}
+
+/* Optional: Adjust the style for the select dropdown */
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+        /* Tùy chỉnh màu chủ đạo thành xanh dương */
+        :root {
+            --primary-color: #007BFF;
+        }
+
+        /* Tùy chỉnh màu chữ của các label */
+        label {
+            color: var(--primary-color);
+        }
+
+        /* Tùy chỉnh màu nền và chữ của nút cập nhật */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body style="background-color: #f8f9fa;">
+
+    <div class="container mt-5">
+        <h2 style="color: var(--primary-color);">Cập Nhật Sản Phẩm</h2>
+
+        <!-- Form cập nhật sản phẩm -->
+        <form method="post" action="/productsCpanel/productDetail/{{product._id}}/edit">
+            <div class="mb-3 d-flex">
+                {{#each imageProduct}}
+                <img src="{{this}}" height="100" width="100">
+                {{/each}}
+            </div>
+            <div class="col-md-6 row">
+                <label class="form-label" for="phone">Image</label>
+                <input type="file" name="image" class="form-control" multiple placeholder="Choose file" id="image">
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Tên Sản Phẩm</label>
+                <input type="text" class="form-control" name="productName" value="{{product.productName}}"
+                    placeholder="Nhập tên sản phẩm">
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Giá Sản Phẩm</label>
+                <input type="text" class="form-control" name="price" value="{{product.price}}"
+                    placeholder="Nhập tên sản phẩm">
+            </div>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Số Lượng Sản Phẩm</label>
+                <input type="text" class="form-control" name="quantity" value="{{product.quantity}}"
+                    placeholder="Nhập tên sản phẩm">
+            </div>
+            <div class="mb-3">
+                <label for="productDescription" class="form-label">Mô Tả Sản Phẩm</label>
+                <input class="form-control" name="description" value="{{product.description}}"
+                    placeholder="Nhập mô tả sản phẩm" />
+            </div>
+            <div class="mb-3">
+                <label for="productPrice" class="form-label">Offer Sản Phẩm</label>
+                <input type="text" class="form-control" name="offer" value="{{product.offer}}"
+                    placeholder="Nhập giá sản phẩm">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="brand" class="form-label">Brand:</label>
+                <select name="brand" class="form-control">
+                    {{#each brands}}
+                    {{#if this.selected}}
+                    <option selected value="{{this._id}}">{{this.name}}</option>
+                    {{else}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="email" class="form-label">Size:</label>
+                {{#each sizes}}
+                {{#if this.selected}}
+                <input type="checkbox" checked name="size" onclick="getSelectedFruits()"
+                    value="{{this._id}}">{{this.name}}
+                </input>
+                {{else}}
+                <input type="checkbox" name="size" onclick="getSelectedFruits()" value="{{this._id}}">{{this.name}}
+                </input>
+                {{/if}}
+                {{/each}}
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Category:</label>
+                <select name="categoryID" class="form-control">
+                    {{#each categories}}
+                    {{#if this.selected}}
+                    <option selected value="{{this._id}}">{{this.name}}</option>
+                    {{else}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Color:</label>
+
+                {{#each colors}}
+                {{#if this.selected}}
+                <input type="checkbox" checked name="colorID" value="{{this._id}}">{{this.name}}
+                </input>
+                <input type="color" value="{{this.code}}" disabled>
+                {{else}}
+                <input type="checkbox" name="colorID" value="{{this._id}}">{{this.name}}
+                </input>
+                <input type="color" value="{{this.code}}" disabled>
+                {{/if}}
+                {{/each}}
+            </div>
+            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS Bundle (Popper included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="..."
+        crossorigin="anonymous" defer></script>
+</body>
+
+</html>

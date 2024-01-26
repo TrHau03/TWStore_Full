@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "329976951900",
+    "project_id": "twstore-f4ae5",
+    "storage_bucket": "twstore-f4ae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329976951900:android:ab1198f277c18bbda66299",
+        "android_client_info": {
+          "package_name": "com.twstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqY_Uha6npWV_NMTPVjE1tnDG6NwfWdrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
